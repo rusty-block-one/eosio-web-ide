@@ -32,7 +32,6 @@ BOOST_AUTO_TEST_CASE(post) try {
         ("reply_to", 0)        //
         ("user", "john")       //
         ("content", "post 1")  //
-        ("like", "jane")       //
     );
     t.push_action(
         N(talk), N(post), N(jane),
@@ -41,7 +40,6 @@ BOOST_AUTO_TEST_CASE(post) try {
         ("reply_to", 0)        //
         ("user", "jane")       //
         ("content", "post 2")  //
-        ("like", "john")       //
     );
     t.push_action(
         N(talk), N(post), N(john),
@@ -50,7 +48,6 @@ BOOST_AUTO_TEST_CASE(post) try {
         ("reply_to", 2)              //
         ("user", "john")             //
         ("content", "post 3: reply") //
-        ("like", "jane")             //
     );
 
     // Can't reply to non-existing message
@@ -63,7 +60,6 @@ BOOST_AUTO_TEST_CASE(post) try {
                 ("reply_to", 99)             //
                 ("user", "john")             //
                 ("content", "post 3: reply") //
-                ("like", "jane")             //
             );
         }(),
         fc::exception);
