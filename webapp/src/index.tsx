@@ -144,9 +144,9 @@ class Messages extends React.Component<{}, { content: string }> {
                         (row.reply_to + '').padEnd(12) + '  ' +
                         row.user.padEnd(14) +
                         row.content.padEnd(22) +
-                        row.stats.thumbs_up.padEnd(5) +
-                        row.stats.thumbs_down.padEnd(5) +
-                        row.stats.meh.pad + '\n';
+                        row.stats.thumbs_up + '    ' +
+                        row.stats.thumbs_down + '    ' +
+                        row.stats.meh + '\n';
                 this.setState({ content });
             } catch (e) {
                 if (e.json)
