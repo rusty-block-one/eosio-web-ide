@@ -56,8 +56,13 @@ cleos create account eosio bob EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GD
 cleos create account eosio jane EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV
 cleos push action talk post '[1000, 0, bob, "This is a new post"]' -p bob
 cleos push action talk post '[2000, 0, jane, "This is my first post"]' -p jane
+<<<<<<< HEAD
 cleos push action talk thumbs_up '[jane, 1000) -p jane
 cleos push action talk thumbs_down '[jane, 1000) -p jane
+=======
+cleos push action talk thumbsup '[jane, 1000) -p jane
+cleos push action talk thumbsdown '[jane, 1000) -p jane
+>>>>>>> 9210533d4c240ee9c3bfeec41a0b4c5af6ea25d2
 cleos push action talk meh '[jane, 1000) -p jane
 ```
 

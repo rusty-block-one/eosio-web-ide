@@ -63,8 +63,13 @@ class talk : eosio::contract {
     //  @return N/A
     void record_reaction(uint64_t talk, reaction_type reaction) {
         message_table table(get_self(), 0);
+<<<<<<< HEAD
         auto& message = table.find(talk);
         check(message != table.end(), "Referenced talk does not exist");
+=======
+        auto message = table.find(talk);
+        eosio::check(message != table.end(), "Referenced talk does not exist");
+>>>>>>> 9210533d4c240ee9c3bfeec41a0b4c5af6ea25d2
         table.modify(message, _self, [&](auto& row) {
                 row.stats += reaction;
                 });
@@ -77,8 +82,13 @@ class talk : eosio::contract {
     //  @return N/A
     void change_reaction(uint64_t talk, reaction_type from, reaction_type to) {
         message_table table(get_self(), 0);
+<<<<<<< HEAD
         auto& message = table.find(talk);
         check(message != table.end(), "Referenced talk does not exist");
+=======
+        auto message = table.find(talk);
+        eosio::check(message != table.end(), "Referenced talk does not exist");
+>>>>>>> 9210533d4c240ee9c3bfeec41a0b4c5af6ea25d2
         table.modify(message, _self, [&](auto& row) {
                 row.stats -= from;
                 row.stats += to;
@@ -96,25 +106,42 @@ class talk : eosio::contract {
 
         //  check reply-to
         message_table table(get_self(), 0);
+<<<<<<< HEAD
         auto& message table.find(reply_to);
+=======
+        auto message = table.find(reply_to);
+>>>>>>> 9210533d4c240ee9c3bfeec41a0b4c5af6ea25d2
         if(message == table.end()) {
             return;
         }
 
         //  if first time contributor
+<<<<<<< HEAD
         reaction_table current_reactions(get_self(), 0);
         auto reaction = current_reactions.find(user.value);
         if(reaction == current_reactions.end()) {
             current_reactions.emplace(user.value, [&](auto& row) {
                     row.contributor = user;
                     reactions[reply_to] = reaction;
+=======
+        contributor_table current_reactions(get_self(), 0);
+        auto current = current_reactions.find(user.value);
+        if(current == current_reactions.end()) {
+            current_reactions.emplace(_self, [&](auto& row) {
+                    row.name = user;
+                    row.reactions[reply_to] = reaction;
+>>>>>>> 9210533d4c240ee9c3bfeec41a0b4c5af6ea25d2
                     record_reaction(reply_to, reaction);
                     });
             return;
         }
 
         //  if existing contributor
+<<<<<<< HEAD
         current_reactions.modify(reaction, _self [&](auto& row) {
+=======
+        current_reactions.modify(current, _self, [&](auto& row) {
+>>>>>>> 9210533d4c240ee9c3bfeec41a0b4c5af6ea25d2
                 auto old = row.reactions.find(reply_to);
                 //  if first time contributing to this talk
                 if(old == row.reactions.end()) {
@@ -151,7 +178,7 @@ class talk : eosio::contract {
             id = std::max(table.available_primary_key(), 1'000'000'000ull);
 
         // Record the message
-        table.emplace(get_self(), [&](auto& message) {
+        table.emplace(get_self(), [&](auto message) {
             message.id       = id;
             message.reply_to = reply_to;
             message.user     = user;
@@ -159,6 +186,7 @@ class talk : eosio::contract {
         });
     }
 
+<<<<<<< HEAD
     [[eosios::action]]
     void thumbs_up(eosio::name user, uint64_t reply_to) {
         process_reaction(user, reply_to, reaction_type::thumbs_up);
@@ -170,6 +198,19 @@ class talk : eosio::contract {
     }
 
     [[eosios::action]]
+=======
+    [[eosio::action]]
+    void thumbsup(eosio::name user, uint64_t reply_to) {
+        process_reaction(user, reply_to, reaction_type::thumbs_up);
+    }
+
+    [[eosio::action]]
+    void thumbsdown(eosio::name user,  uint64_t reply_to) {
+        process_reaction(user, reply_to, reaction_type::thumbs_down);
+    }
+
+    [[eosio::action]]
+>>>>>>> 9210533d4c240ee9c3bfeec41a0b4c5af6ea25d2
     void meh(eosio::name user,  uint64_t reply_to) {
         process_reaction(user, reply_to, reaction_type::meh);
     }
